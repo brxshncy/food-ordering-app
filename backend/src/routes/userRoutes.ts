@@ -5,6 +5,7 @@ import {
   getCurrentUser,
   updateCurrentUser,
 } from "../controllers/userController";
+import { validateMyUserRequest } from "../middleware/validation";
 
 const myUserRoute = express.Router();
 
@@ -13,6 +14,6 @@ myUserRoute
   .route("/")
   .post(jwtCheck, createCurrentUser)
   .get(jwtCheck, getCurrentUser)
-  .put(jwtCheck, updateCurrentUser);
+  .put(jwtCheck, validateMyUserRequest, updateCurrentUser);
 
 export default myUserRoute;
