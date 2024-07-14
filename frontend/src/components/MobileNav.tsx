@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Sheet,
   SheetContent,
@@ -7,11 +6,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { CircleUserRound, Menu } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
+import { useAuth0 } from "@auth0/auth0-react";
+import MobileNavLinks from "./MobileNavLinks";
 
 const MobileNav = () => {
+  const { isAuthenticated, loginWithRedirect, user } = useAuth0();
+
   return (
     <div>
       <Sheet>
@@ -21,12 +24,28 @@ const MobileNav = () => {
         <SheetContent>
           <SheetHeader>
             <SheetTitle>
-              <span>Welcome to MearnEats.com!</span>
+              {isAuthenticated ? (
+                <span className="flex items-center font-bold gap-2">
+                  <CircleUserRound className="text-orange-500" />
+                  {user?.email}
+                </span>
+              ) : (
+                <span>Welcome to MearnEats.com!</span>
+              )}
             </SheetTitle>
           </SheetHeader>
           <Separator className="my-3" />
-          <SheetDescription className="flex">
-            <Button className="flex-1 font-bold bg-orange-500">Login</Button>
+          <SheetDescription className="flex flex-col gap-4">
+            {isAuthenticated ? (
+              <MobileNavLinks />
+            ) : (
+              <Button
+                onClick={async () => loginWithRedirect()}
+                className="flex-1 font-bold bg-orange-500"
+              >
+                Login
+              </Button>
+            )}
           </SheetDescription>
         </SheetContent>
       </Sheet>

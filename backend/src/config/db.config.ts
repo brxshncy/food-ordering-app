@@ -7,8 +7,9 @@ export const connectDb = async () => {
       throw new Error("MONGO_URI environment variable not set");
     }
     const connection = await mongoose.connect(mongoUri);
-    console.log(`Mongo DB connected`, connection.connection.host);
+    console.log(`MongoDB connected: ${connection.connection.host}`);
   } catch (error) {
-    console.log("Error connecting to database", error);
+    console.error("Error connecting to database", error);
+    process.exit(1); // Optional: Exit process with failure
   }
 };
