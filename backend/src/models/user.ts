@@ -1,7 +1,10 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 // Create User model
+const { ObjectId } = Types;
+
 const userSchema = new mongoose.Schema({
+  _id: ObjectId,
   auth0Id: {
     type: String,
     required: true,

@@ -41,6 +41,11 @@ export const jwtParser = async (
       return res.sendStatus(401);
     }
 
+    // Ensure that user._id is not null or undefined
+    if (!user._id) {
+      return res.sendStatus(401);
+    }
+
     req.auth0Id = auth0Id;
     req.userId = user._id.toString();
 

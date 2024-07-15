@@ -1,5 +1,5 @@
 import express from "express";
-import { jwtCheck } from "./../middleware/auth";
+import { jwtCheck, jwtParser } from "./../middleware/auth";
 import {
   createCurrentUser,
   getCurrentUser,
@@ -13,7 +13,7 @@ const myUserRoute = express.Router();
 myUserRoute
   .route("/")
   .post(jwtCheck, createCurrentUser)
-  .get(jwtCheck, getCurrentUser)
-  .put(jwtCheck, validateMyUserRequest, updateCurrentUser);
+  .get(jwtCheck, jwtParser, getCurrentUser)
+  .put(jwtCheck, jwtParser, validateMyUserRequest, updateCurrentUser);
 
 export default myUserRoute;
