@@ -29,10 +29,10 @@ restaurantRoutes
   )
   .get(jwtCheck, jwtParser, getRestaurant)
   .put(
-    validateRestaurantRequest,
     jwtCheck,
     jwtParser,
     upload.single("imageFile"),
+    validateRestaurantRequest,
     updateRestaurant
   );
 
