@@ -27,7 +27,7 @@ restaurantRoutes
     validateRestaurantRequest,
     createRestaurant
   )
-  .get(getRestaurant)
+  .get(jwtCheck, jwtParser, getRestaurant)
   .put(
     validateRestaurantRequest,
     jwtCheck,
